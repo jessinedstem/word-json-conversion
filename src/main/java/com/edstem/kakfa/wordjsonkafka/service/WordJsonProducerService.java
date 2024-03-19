@@ -2,6 +2,11 @@ package com.edstem.kakfa.wordjsonkafka.service;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +18,12 @@ import java.util.Map;
 
 @Service
 public class WordJsonProducerService {
-    public String convertWordToJson(MultipartFile file) throws IOException {
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    private final String kafkaTopic = "word_json_converter";
+
+    public void convertWordToJson(MultipartFile file) throws IOException {
         List<Map<String, String>> data = new ArrayList<>();
 
         try (XWPFDocument document = new XWPFDocument(file.getInputStream())) {
@@ -40,6 +50,12 @@ public class WordJsonProducerService {
         }
         jsonBuilder.append("\n]");
 
-        return jsonBuilder.toString();
+        String json = jsonBuilder.toString();
+
+        Message<String> message = MessageBuilder
+                .withPayload(json)
+                .setHeader(KafkaHeaders.TOPIC, kafkaTopic)
+                .build();
+        kafkaTemplate.send(message);
     }
 }

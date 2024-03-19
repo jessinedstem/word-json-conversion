@@ -21,8 +21,8 @@ public class WordJsonMessageController {
     }
 
     @PostMapping("/conversion")
-    public ResponseEntity<String> convertWordToJson(@RequestParam("file") MultipartFile file) throws IOException {
-        String json = wordJsonProducerService.convertWordToJson(file);
-        return ResponseEntity.ok(json);
+    public String convertWordToJson(@RequestParam("file") MultipartFile file) throws IOException {
+        wordJsonProducerService.convertWordToJson(file);
+        return "File Uploaded Succesfully";
     }
 }
