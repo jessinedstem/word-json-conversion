@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "6db19c4a-f8ac-4c1e-858f-e4ee3d820cc0",
+		"name": "kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30274173"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/parse/convert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/HP/Downloads/employee.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/parse/convert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"parse",
+						"convert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/parse/conversion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/HP/Desktop/DOC-20231024-WA0040_.docx"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/parse/conversion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"parse",
+						"conversion"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
